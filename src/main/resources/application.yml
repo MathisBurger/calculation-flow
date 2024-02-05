@@ -4,9 +4,15 @@ endpoints:
       path: "/123"
       className: "Class.name"
       resultType: "xxx"
+      parameters:
+        myInt: int
+        myChar: char
     test2:
       path: "/445"
       className: "Moin"
       resultType: "yyy"
+      parameters:
+        myInt: int
+        myChar: char
 
 
