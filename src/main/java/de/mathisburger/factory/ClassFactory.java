@@ -18,18 +18,13 @@ public class ClassFactory {
 
     public void writeClass(String classBody) throws IOException {
         StringBuilder sb = new StringBuilder();
-        sb.append("package tmp;public class " + this.function.className() + "{");
-        sb.append("public " + this.function.resultType() + " calculate(");
+        sb.append("package tmp;import java.util.Map;public class " + this.function.className() + "{");
+        sb.append("public " + this.function.resultType() + " calculate(Map<String,de.mathisburger.factory.ParamEnum> params) {");
         Map<String, String> parameters = this.function.parameters();
         String[] keys = parameters.keySet().toArray(new String[0]);
-        for (int i=0; i<keys.length; i++) {
-            if (i == 0) {
-                sb.append(parameters.get(keys[i]) + " "+ keys[i]);
-            } else {
-                sb.append("," + parameters.get(keys[i]) + " "+ keys[i]);
-            }
+        for (String key : keys) {
+            sb.append(this.getUnwrapLine(key, parameters.get(key)));
         }
-        sb.append(") {");
         sb.append(classBody);
         sb.append("}}");
         String filename = "./" + this.function.className() + ".java";
@@ -39,6 +34,21 @@ public class ClassFactory {
         writer.write(sb.toString());
         writer.close();
         Runtime.getRuntime().exec("javac " + filename);
-        file.delete();
+        //file.delete();
+    }
+
+    private String getUnwrapLine(String name, String type) {
+        ParamEnum parsedType = ParamEnum.getType(type);
+        if (parsedType == ParamEnum.CHAR) {
+            return "char " + name + " = params.get(\"" + name + "\").getChar();";
+        } else if (parsedType == ParamEnum.INT) {
+            return "int " + name + " = params.get(\"" + name + "\").getInteger();";
+        } else if (parsedType == ParamEnum.LONG) {
+            return "long " + name + " = params.get(\"" + name + "\").getLong();";
+        } else if (parsedType == ParamEnum.DOUBLE) {
+            return "double " + name + " = params.get(\"" + name + "\").getDouble();";
+        } else {
+            return "String " + name + " = params.get(\"" + name + "\").getString();";
+        }
     }
 }
