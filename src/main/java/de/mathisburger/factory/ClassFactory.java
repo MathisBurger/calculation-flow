@@ -19,7 +19,8 @@ public class ClassFactory {
     public void writeClass(String classBody) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append("package tmp;import java.util.Map;public class " + this.function.className() + "{");
-        sb.append("public " + this.function.resultType() + " calculate(Map<String,de.mathisburger.factory.ParamEnum> params) {");
+        sb.append("public " + this.function.resultType() + " calculate(de.mathisburger.factory.ParameterClass rawParams) {");
+        sb.append("Map<String, de.mathisburger.factory.ParamEnum> params = rawParams.getParams();");
         Map<String, String> parameters = this.function.parameters();
         String[] keys = parameters.keySet().toArray(new String[0]);
         for (String key : keys) {
@@ -27,14 +28,18 @@ public class ClassFactory {
         }
         sb.append(classBody);
         sb.append("}}");
-        String filename = "./" + this.function.className() + ".java";
+        String filename = "./tmp/" + this.function.className() + ".java";
         File file = new File(filename);
         file.createNewFile();
         BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
         writer.write(sb.toString());
         writer.close();
-        Runtime.getRuntime().exec("javac " + filename);
-        //file.delete();
+        File classFile = new File("./tmp/" + this.function.className() + ".class");
+        if (classFile.exists()) {
+            classFile.delete();
+        }
+        String javaHome = System.getProperty("java.home");
+        Runtime.getRuntime().exec(javaHome + "/bin/javac " + filename);
     }
 
     private String getUnwrapLine(String name, String type) {
