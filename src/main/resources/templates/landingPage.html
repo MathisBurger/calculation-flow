@@ -1,0 +1,32 @@
+<!Doctype html>
+<html>
+    <head>
+        <style>
+            th, td {
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>ResultType</th>
+                    <th>Parameters</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#for function in functions}
+                    <tr>
+                        <td>{function.name}</td>
+                        <td>{function.resultType}</td>
+                        <td>{function.getParameterList()}</td>
+                        <td><a href="https://mathis-burger.de">Edit</a></td>
+                    </tr>
+                {/for}
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -3,6 +3,7 @@ package de.mathisburger.resources;
 import de.mathisburger.config.EndpointConfig;
 import de.mathisburger.config.Function;
 import de.mathisburger.data.FunctionData;
+import de.mathisburger.factory.DataFactory;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -15,19 +16,11 @@ import java.util.*;
 public class ConfiguredFunctions {
 
     @Inject
-    EndpointConfig endpointConfig;
+    DataFactory factory;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<FunctionData> functions() {
-        Map<String, Function> functionMap = this.endpointConfig.functions();
-        Set<String> keys = functionMap.keySet();
-        List<FunctionData> collection = new ArrayList<>();
-        for (String key : keys) {
-            Function func = functionMap.get(key);
-            FunctionData data = new FunctionData(key, func.className(), func.resultType(), func.parameters());
-            collection.add(data);
-        }
-        return collection;
+        return this.factory.getFunctionData();
     }
 }

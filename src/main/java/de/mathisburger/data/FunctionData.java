@@ -1,6 +1,7 @@
 package de.mathisburger.data;
 
 import java.util.Map;
+import java.util.Set;
 
 public class FunctionData {
 
@@ -17,6 +18,11 @@ public class FunctionData {
         this.className = className;
         this.resultType = resultType;
         this.parameters = parameters;
+    }
+
+    public String getParameterList() {
+        Set<String> params = parameters.keySet();
+        return String.join("; ", params);
     }
 
 }
