@@ -2,15 +2,8 @@ endpoints:
   functions:
     test1:
       path: "/123"
-      className: "Class.name"
-      resultType: "xxx"
-      parameters:
-        myInt: int
-        myChar: char
-    test2:
-      path: "/445"
-      className: "Moin"
-      resultType: "yyy"
+      className: "Test1"
+      resultType: "String"
       parameters:
         myInt: int
         myChar: char
