@@ -1,0 +1,33 @@
+<!Doctype html>
+<html>
+    <style>
+        textarea {
+            width: 80vw;
+            height: 70vh;
+        }
+    </style>
+    <body>
+        <h1 id="header">{id}</h1>
+        <h4>Parameters: {params}</h4>
+        <textarea id="edit-input">{body}</textarea>
+        <input type="submit" id="edit-submit">
+        <script>
+            document.getElementById('edit-submit').addEventListener('click', () => {
+                let value = document.getElementById('edit-input').value;
+                fetch('/configure', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'text/plain',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: document.getElementById('header').innerText,
+                        classBody: value
+                    })
+                })
+                    .then((res) => res.text())
+                    .then((data) => alert(data));
+            })
+        </script>
+    </body>
+</html>

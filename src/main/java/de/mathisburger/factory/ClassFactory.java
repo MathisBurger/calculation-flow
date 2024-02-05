@@ -2,10 +2,7 @@ package de.mathisburger.factory;
 
 import de.mathisburger.config.Function;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 
 public class ClassFactory {
@@ -16,7 +13,7 @@ public class ClassFactory {
         this.function = function;
     }
 
-    public void writeClass(String classBody) throws IOException {
+    public boolean writeClass(String classBody) throws IOException, InterruptedException {
         StringBuilder sb = new StringBuilder();
         sb.append("package tmp;import java.util.Map;public class " + this.function.className() + "{");
         sb.append("public " + this.function.resultType() + " calculate(de.mathisburger.factory.ParameterClass rawParams) {");
@@ -39,7 +36,8 @@ public class ClassFactory {
             classFile.delete();
         }
         String javaHome = System.getProperty("java.home");
-        Runtime.getRuntime().exec(javaHome + "/bin/javac " + filename);
+        int exitCode = Runtime.getRuntime().exec(javaHome + "/bin/javac " + filename).waitFor();
+        return exitCode == 0;
     }
 
     private String getUnwrapLine(String name, String type) {

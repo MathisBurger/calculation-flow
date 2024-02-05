@@ -38,4 +38,13 @@ public class ParameterFactory {
         return data;
     }
 
+    public static String getFullString(Map<String, String> params) {
+        StringBuilder sb = new StringBuilder();
+        Set<String> keys = params.keySet();
+        for (String key : keys) {
+            sb.append(key + " (" + params.get(key) + ");");
+        }
+        return sb.toString();
+    }
+
 }

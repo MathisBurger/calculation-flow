@@ -33,7 +33,7 @@ public class Calculate {
             Object dynamicObject = dynamicClass.newInstance();
             Method calculate = dynamicClass.getDeclaredMethod("calculate", ParameterClass.class);
             Object result = calculate.invoke(dynamicObject, new ParameterClass(parameter));
-            System.out.println(result);
+            return result;
         } catch (ClassNotFoundException | InstantiationException |
                  IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
