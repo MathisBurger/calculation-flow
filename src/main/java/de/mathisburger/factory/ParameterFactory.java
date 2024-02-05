@@ -42,7 +42,7 @@ public class ParameterFactory {
         StringBuilder sb = new StringBuilder();
         Set<String> keys = params.keySet();
         for (String key : keys) {
-            sb.append(key + " (" + params.get(key) + ");");
+            sb.append(key + " (" + params.get(key) + "); ");
         }
         return sb.toString();
     }

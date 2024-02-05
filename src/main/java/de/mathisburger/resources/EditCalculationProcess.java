@@ -30,6 +30,7 @@ public class EditCalculationProcess {
         Function func = this.config.functions().get(id);
         return this.editPage.data("id", id)
                 .data("body", RawCodeFactory.readRawCode(id))
+                .data("resultType", func.resultType())
                 .data("params", ParameterFactory.getFullString(func.parameters()));
     }
 }
