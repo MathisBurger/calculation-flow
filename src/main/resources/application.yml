@@ -1,2 +1,12 @@
-greeting:
-  message: "hello"
+endpoints:
+  functions:
+    test1:
+      path: "/123"
+      className: "Class.name"
+      resultType: "xxx"
+    test2:
+      path: "/445"
+      className: "Moin"
+      resultType: "yyy"
+
+
