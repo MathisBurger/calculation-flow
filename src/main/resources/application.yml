@@ -1,7 +1,6 @@
 endpoints:
   functions:
     test1:
-      path: "/123"
       className: "Test1"
       resultType: "String"
       parameters:

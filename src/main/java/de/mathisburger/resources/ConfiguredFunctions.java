@@ -25,7 +25,7 @@ public class ConfiguredFunctions {
         List<FunctionData> collection = new ArrayList<>();
         for (String key : keys) {
             Function func = functionMap.get(key);
-            FunctionData data = new FunctionData(key, func.path(), func.className(), func.resultType(), func.parameters());
+            FunctionData data = new FunctionData(key, func.className(), func.resultType(), func.parameters());
             collection.add(data);
         }
         return collection;

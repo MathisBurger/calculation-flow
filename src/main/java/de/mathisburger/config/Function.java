@@ -6,9 +6,6 @@ import java.util.Map;
 
 public interface Function {
 
-    @WithName("path")
-    String path();
-
     @WithName("className")
     String className();
 
