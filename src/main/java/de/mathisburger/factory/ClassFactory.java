@@ -6,14 +6,28 @@ import de.mathisburger.data.CompilationResponse;
 import java.io.*;
 import java.util.Map;
 
+/**
+ * Used to create class objects
+ */
 public class ClassFactory {
 
+    /**
+     * Function that should be built
+     */
     private final Function function;
 
     public ClassFactory(Function function) {
         this.function = function;
     }
 
+    /**
+     * Compiles a function
+     *
+     * @param classBody The body of the class
+     * @return CompilationResponse
+     * @throws IOException on file error
+     * @throws InterruptedException on process error
+     */
     public CompilationResponse writeClass(String classBody) throws IOException, InterruptedException {
         StringBuilder sb = new StringBuilder();
         sb.append("package tmp;import java.util.Map;public class " + this.function.className() + "{");
@@ -52,6 +66,13 @@ public class ClassFactory {
         return new CompilationResponse(exitCode == 0, fullLine.toString());
     }
 
+    /**
+     * Generates an unwrap line
+     *
+     * @param name Name
+     * @param type type
+     * @return String
+     */
     private String getUnwrapLine(String name, String type) {
         ParamEnum parsedType = ParamEnum.getType(type);
         if (parsedType == ParamEnum.CHAR) {

@@ -9,6 +9,9 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+/**
+ * Landing page template
+ */
 @Path("/landing")
 public class LandingPage {
 
@@ -18,6 +21,10 @@ public class LandingPage {
     @Inject
     DataFactory factory;
 
+    /**
+     * Renders the landing page template
+     * @return TemplateInstance
+     */
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get() {

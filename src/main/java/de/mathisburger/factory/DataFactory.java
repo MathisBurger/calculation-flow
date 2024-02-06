@@ -11,12 +11,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * factory that handles data
+ */
 @ApplicationScoped
 public class DataFactory {
 
     @Inject
     EndpointConfig config;
 
+    /**
+     * Gets all function data
+     *
+     * @return List<FunctionData>
+     */
     public List<FunctionData> getFunctionData() {
         Map<String, Function> functionMap = this.config.functions();
         Set<String> keys = functionMap.keySet();

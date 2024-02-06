@@ -8,12 +8,19 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+/**
+ * The start page
+ */
 @Path("/start")
 public class Start {
 
     @Inject
     Template start;
 
+    /**
+     * Sends the rendered start page template
+     * @return TemplateInstance
+     */
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get() {

@@ -11,6 +11,9 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 
+/**
+ * Tests an function
+ */
 @Path("/test")
 public class CalcTest {
 
@@ -20,6 +23,12 @@ public class CalcTest {
     @Inject
     EndpointConfig config;
 
+    /**
+     * Provides test template
+     *
+     * @param id The function ID
+     * @return TemplateInstance
+     */
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get(@QueryParam("id") String id) {

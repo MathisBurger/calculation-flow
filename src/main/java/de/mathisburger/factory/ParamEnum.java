@@ -2,6 +2,9 @@ package de.mathisburger.factory;
 
 import java.util.Optional;
 
+/**
+ * Enum that contains all values
+ */
 public enum ParamEnum {
     STRING,
     CHAR,

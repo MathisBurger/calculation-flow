@@ -15,6 +15,9 @@ import jakarta.ws.rs.core.MediaType;
 
 import java.io.IOException;
 
+/**
+ * Edit template
+ */
 @Path("/edit")
 public class EditCalculationProcess {
 
@@ -24,6 +27,13 @@ public class EditCalculationProcess {
     @Inject
     EndpointConfig config;
 
+    /**
+     * Renders the edit template
+     *
+     * @param id The function ID
+     * @return TemplateInstance
+     * @throws IOException on bad file read
+     */
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance renderEdit(@QueryParam("id") String id) throws IOException {

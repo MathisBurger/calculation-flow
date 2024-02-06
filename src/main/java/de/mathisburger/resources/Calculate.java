@@ -14,12 +14,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+/**
+ * Calculates a function
+ */
 @Path("/calculate")
 public class Calculate {
 
     @Inject
     EndpointConfig config;
 
+    /**
+     * Calculates a function
+     *
+     * @param body The calculation body
+     * @return Object response
+     */
     @POST
     public Object calc(CalculateBody body) {
         if (!this.config.functions().containsKey(body.id)) {

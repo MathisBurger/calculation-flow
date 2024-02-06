@@ -14,12 +14,23 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import java.io.IOException;
 
+/**
+ * Configures a function
+ */
 @Path("/configure")
 public class ClassConfig {
 
     @Inject
     EndpointConfig config;
 
+    /**
+     * Configures a function
+     *
+     * @param body The config body object
+     * @return CompilationResponse response
+     * @throws IOException as file read exception
+     * @throws InterruptedException on failed waiting for process
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
