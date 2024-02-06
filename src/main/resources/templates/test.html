@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <style>
+        button {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/landing">Back</a>
+    <h1 id="route-id">{id}</h1>
+    <div id="inputs">
+        {#for param in parameters}
+            <div>
+                <p>{param}</p>
+                <input type="text" />
+            </div>
+        {/for}
+    </div>
+    <br>
+    <button type="submit" id="submit-button">Submit</button>
+<script>
+    document.getElementById('submit-button').addEventListener('click', () => {
+        let form = document.getElementById('inputs');
+        let parameters = { };
+        for (let child of form.children) {
+            let name = child.children[0].innerHTML.split('=')[0];
+            parameters[name] = child.children[1].value;
+        }
+        fetch('/calculate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: document.getElementById('route-id').innerText,
+                parameters: parameters
+            })
+        })
+            .then((res) => res.text())
+            .then((data) => alert(data));
+
+    });
+</script>
+</body>
+</html>
