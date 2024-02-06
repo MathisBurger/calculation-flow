@@ -46,7 +46,7 @@ public class ClassFactory {
         StringBuilder fullLine = new StringBuilder();
 
         while ((line = br.readLine()) != null) {
-            fullLine.append(line);
+            fullLine.append(line + "\n");
         }
         int exitCode = proc.waitFor();
         return new CompilationResponse(exitCode == 0, fullLine.toString());
