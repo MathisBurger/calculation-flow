@@ -8,6 +8,8 @@
         </style>
     </head>
     <body>
+        <h1>Landing page</h1>
+        <p>You can find all calculations that can be configured.</p>
         <table border="1">
             <thead>
                 <tr>
@@ -23,7 +25,10 @@
                         <td>{function.name}</td>
                         <td>{function.resultType}</td>
                         <td>{function.getParameterList()}</td>
-                        <td><a href="/edit?id={function.name}">Edit</a></td>
+                        <td>
+                            <a href="/edit?id={function.name}">Edit</a>
+                            <a href="/test?id={function.name}">Test</a>
+                        </td>
                     </tr>
                 {/for}
             </tbody>
