@@ -1,6 +1,7 @@
 package de.mathisburger.factory;
 
 import de.mathisburger.config.Function;
+import de.mathisburger.data.CompilationResponse;
 
 import java.io.*;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class ClassFactory {
         this.function = function;
     }
 
-    public boolean writeClass(String classBody) throws IOException, InterruptedException {
+    public CompilationResponse writeClass(String classBody) throws IOException, InterruptedException {
         StringBuilder sb = new StringBuilder();
         sb.append("package tmp;import java.util.Map;public class " + this.function.className() + "{");
         sb.append("public " + this.function.resultType() + " calculate(de.mathisburger.factory.ParameterClass rawParams) {");
@@ -36,8 +37,19 @@ public class ClassFactory {
             classFile.delete();
         }
         String javaHome = System.getProperty("java.home");
-        int exitCode = Runtime.getRuntime().exec(javaHome + "/bin/javac " + filename).waitFor();
-        return exitCode == 0;
+        Process proc = Runtime.getRuntime().exec(javaHome + "/bin/javac " + filename);
+        InputStream stdIn = proc.getInputStream();
+        InputStreamReader isr = new InputStreamReader(stdIn);
+        BufferedReader br = new BufferedReader(isr);
+
+        String line = null;
+        StringBuilder fullLine = new StringBuilder();
+
+        while ((line = br.readLine()) != null) {
+            fullLine.append(line);
+        }
+        int exitCode = proc.waitFor();
+        return new CompilationResponse(exitCode == 0, fullLine.toString());
     }
 
     private String getUnwrapLine(String name, String type) {

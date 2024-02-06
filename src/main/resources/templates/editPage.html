@@ -3,7 +3,10 @@
     <style>
         textarea {
             width: 80vw;
-            height: 70vh;
+            height: 60vh;
+        }
+        input {
+            padding: 10px;
         }
     </style>
     <body>
@@ -12,6 +15,7 @@
         <h4>Parameters: {params}</h4>
         <h4>Return type: {resultType}</h4>
         <textarea id="edit-input">{body}</textarea>
+        <p id="error-message"></p>
         <input type="submit" id="edit-submit">
         <script>
             document.getElementById('edit-submit').addEventListener('click', () => {
@@ -19,7 +23,7 @@
                 fetch('/configure', {
                     method: 'POST',
                     headers: {
-                        'Accept': 'text/plain',
+                        'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
@@ -27,8 +31,16 @@
                         classBody: value
                     })
                 })
-                    .then((res) => res.text())
-                    .then((data) => alert(data));
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.success) {
+                            alert("Successful!");
+                            document.getElementById('error-message').innerHTML = '';
+                        } else {
+                            document.getElementById('error-message').innerHTML = ('Error:<br>' + data.message);
+                            alert("ERROR");
+                        }
+                    });
             })
         </script>
     </body>
